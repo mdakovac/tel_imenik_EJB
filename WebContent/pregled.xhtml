@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<h:form id="trazilica">
+		<h:inputText value="#{pregledBean.search}" />
+		<h:commandButton value="Trazi" action="#{pregledBean.trazi}"
+			render="listOsoba" />
+	</h:form>
+	<br />
+
+
+	<rich:dataTable value="#{pregledBean.sessionVarsBean.listOsoba}"
+		var="v" id="listOsoba" rowClasses="odd-row, even-row" styleClass="stable">
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="Ime " />
+			</f:facet>
+			<h:outputText value="#{v.ime}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="Prezime" />
+			</f:facet>
+			<h:outputText value="#{v.prezime}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="Adresa" />
+			</f:facet>
+			<h:outputText value="#{v.adresa}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="Mjesto" />
+			</f:facet>
+			<h:outputText value="#{v.mjesto}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+				<h:outputText value="Telefoni" />
+			</f:facet>
+			<a4j:repeat id="unosBroj" value="#{v.telefoni}" var="a">
+
+				<h:outputText value="#{a.broj}, " />
+
+				<h:outputText value="#{a.tipString()}"/>
+
+				<br />
+			</a4j:repeat>
+		</rich:column>
+		<rich:column>
+			<f:facet name="header">
+			</f:facet>
+			<h:form id="azuriranje">
+				<h:commandButton value="Ažuriraj"
+					action="#{pregledBean.naAzuriranje(v)}" />
+				<h:commandButton value="Obriši" action="#{pregledBean.brisi(v)}"
+					reRender="listOsoba" />
+			</h:form>
+		</rich:column>
+
+	</rich:dataTable>
+	<h:outputLink value="unos.xhtml">
+		<h:outputText value="Novi unos" />
+	</h:outputLink>
+</body>
+</html>

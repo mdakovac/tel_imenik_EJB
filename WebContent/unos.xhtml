@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<h:outputStylesheet>
+        .rf-dt{
+            width:400px;
+        }
+        .acent{
+            text-align: center;
+        }
+    </h:outputStylesheet>
+</h:head>
+<h:body>
+	<rich:notifyStack id="validationErrors" position="topRight">
+		<rich:notifyMessages />
+	</rich:notifyStack>
+
+	<h1>#{msg['novaOsoba']}</h1>
+	<h:form id="unosOsoba" ajaxSubmit="true">
+
+		<h:panelGrid columns="1">
+			<h:outputText value="Ime: " />
+			<h:inputText value="#{unosBean.ime}" />
+
+			<h:outputText value="Prezime: " />
+			<h:inputText value="#{unosBean.prezime}" />
+
+			<h:outputText value="Adresa: " />
+			<h:inputText value="#{unosBean.adresa}" />
+
+			<h:outputText value="Mjesto: " />
+			<h:inputText value="#{unosBean.mjesto}" />
+			<br />
+
+			<a4j:outputPanel ajaxRendered="true">
+				<a4j:repeat id="unosBroj" value="#{unosBean.telBroj}" var="v"
+					stateVar="i">
+
+					<h:outputText value="Tel. broj: " />
+					<h:inputText value="#{v.broj}" />
+
+
+					<h:outputText value="   Vrsta: " />
+					<rich:select value="#{v.tipTelefona}">
+						<f:selectItem itemValue="#{unosBean.tip_fiksni}"
+							itemLabel="Fiksni" />
+						<f:selectItem itemValue="#{unosBean.tip_mobitel}"
+							itemLabel="Mobitel" />
+						<f:selectItem itemValue="#{unosBean.tip_fax}" itemLabel="Fax" />
+					</rich:select>&#160;&#160;
+					<a4j:commandLink id="link"
+						action="#{unosBean.ukloniUnosNaFormi(v)}" reRender="unosBroj">
+						<h:outputText value="Ukloni" />
+					</a4j:commandLink>
+
+					<br />
+				</a4j:repeat>
+
+			</a4j:outputPanel>
+			<a4j:commandLink id="link" action="#{unosBean.dodajUnosNaFormu()}"
+				reRender="unosBroj">
+				<h:outputText value="Novi broj..." />
+			</a4j:commandLink>
+		</h:panelGrid>
+		<br />
+		<br />
+		<h:commandButton value="Spremi" action="#{unosBean.spremi}" />
+
+	</h:form>
+	<h:outputLink value="pregled.xhtml">
+		<h:outputText value="Pregled" />
+	</h:outputLink>
+</h:body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#azuriranje.xhtml" PATH="/azuriranje.xhtml"
+  SHAPE="408,104,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+ <PROCESS-ITEM NAME="rules:#pregled.xhtml" PATH="/pregled.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pregled.xhtml:0" NAME="item"
+   PATH="/pregled.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="promjena::#azuriranje.xhtml" NAME="output"
+    PATH="/azuriranje.xhtml" TARGET="rules:#azuriranje.xhtml"
+    TITLE="promjena" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

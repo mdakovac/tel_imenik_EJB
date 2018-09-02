@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<h:outputStylesheet>
+        .rf-dt{
+            width:400px;
+        }
+        .acent{
+            text-align: center;
+        }
+    </h:outputStylesheet>
+</h:head>
+<h:body>
+
+	<h1>Ažuriranje</h1>
+	<h:form id="azuriranjeOsoba" ajaxSubmit="true">
+
+		<h:panelGrid columns="1">
+			<h:outputText value="Ime: " />
+			<h:inputText value="#{azuriranjeBean.osoba.ime}" />
+
+			<h:outputText value="Prezime: " />
+			<h:inputText value="#{azuriranjeBean.osoba.prezime}" />
+
+			<h:outputText value="Adresa: " />
+			<h:inputText value="#{azuriranjeBean.osoba.adresa}" />
+
+			<h:outputText value="Mjesto: " />
+			<h:inputText value="#{azuriranjeBean.osoba.mjesto}" />
+			<br />
+
+			<a4j:outputPanel ajaxRendered="true">
+				<a4j:repeat id="azuriranjeBroj" value="#{azuriranjeBean.osoba.telefoni}" var="v"
+					stateVar="i">
+
+					<h:outputText value="Tel. broj: " />
+					<h:inputText value="#{v.broj}" />
+					
+					 
+					<h:outputText value="   Vrsta: " />
+					<rich:select value="#{v.tipTelefona}">
+						<f:selectItem itemValue="#{azuriranjeBean.tip_fiksni}"
+							itemLabel="Fiksni" />
+						<f:selectItem itemValue="#{azuriranjeBean.tip_mobitel}"
+							itemLabel="Mobitel" />
+						<f:selectItem itemValue="#{azuriranjeBean.tip_fax}" itemLabel="Fax" />
+					</rich:select>&#160;&#160;
+					<a4j:commandLink id="link" action="#{azuriranjeBean.ukloniBroj(v)}"
+						reRender="azuriranjeBroj">
+						<h:outputText value="Ukloni" />
+					</a4j:commandLink>
+					
+					<br />
+				</a4j:repeat>
+
+			</a4j:outputPanel>
+			<a4j:commandLink id="link" action="#{azuriranjeBean.dodajBroj()}"
+				reRender="azuriranjeBroj">
+				<h:outputText value="Novi broj..." />
+			</a4j:commandLink>
+		</h:panelGrid>
+		<br />
+		<br />
+		<h:commandButton value="Spremi promjene" action="#{azuriranjeBean.spremiPromjene}" />
+
+	</h:form>
+	<h:outputLink value="pregled.xhtml">
+		<h:outputText value="Natrag na pregled" />
+	</h:outputLink>
+</h:body>
+</html>
